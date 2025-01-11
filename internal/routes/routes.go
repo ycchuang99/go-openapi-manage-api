@@ -1,24 +1,23 @@
 package routes
 
 import (
-	"fmt"
 	"net/http"
+
+	"github.com/yourusername/go-openapi-manage-api/internal/handlers"
+	"github.com/yourusername/go-openapi-manage-api/internal/middleware"
 )
 
 func NewRouter() http.Handler {
 	mux := http.NewServeMux()
 
-	mux.HandleFunc("/", indexHandler)
-	mux.HandleFunc("/api/openapi", apiOpenapiHandler)
+	// Public routes
+	mux.HandleFunc("/", handlers.IndexHandler)
+	mux.HandleFunc("/swagger-ui/", handlers.SwaggerUIHandler)
+
+	// API routes with authentication
+	mux.HandleFunc("/api/specs", middleware.AuthMiddleware(handlers.SpecsHandler))
+	mux.HandleFunc("/api/specs/", middleware.AuthMiddleware(handlers.SpecHandler))
+	mux.HandleFunc("/api/specs/validate", middleware.AuthMiddleware(handlers.ValidateSpecHandler))
 
 	return mux
-}
-
-func indexHandler(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintln(w, "Hello, World!")
-}
-
-func apiOpenapiHandler(w http.ResponseWriter, r *http.Request) {
-	data := "do something i don't know"
-	fmt.Fprintln(w, data)
 }

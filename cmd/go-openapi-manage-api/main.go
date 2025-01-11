@@ -1,21 +1,23 @@
 package main
 
 import (
-	"fmt"
+	"log"
 	"net/http"
+	"os"
 
-	"github.com/ycchuang99/go-openapi-manage-api/internal/routes"
+	"github.com/yourusername/go-openapi-manage-api/internal/routes"
 )
 
 func main() {
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8080"
+	}
+
 	router := routes.NewRouter()
 
-	port := 8080
-	addr := fmt.Sprintf(":%d", port)
-
-	fmt.Printf("Server listening on http://localhost%s\n", addr)
-	err := http.ListenAndServe(addr, router)
-	if err != nil {
-		fmt.Println("Error: ", err)
+	log.Printf("Server starting on port %s", port)
+	if err := http.ListenAndServe(":"+port, router); err != nil {
+		log.Fatal(err)
 	}
 }
