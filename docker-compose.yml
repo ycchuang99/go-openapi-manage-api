@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    ports:
+      - "8080:8080"
+    environment:
+      - DB_HOST=db
+      - DB_USER=postgres
+      - DB_PASSWORD=postgres
+      - DB_NAME=openapi_manager
+      - DB_PORT=5432
+      - API_KEY=your-secret-key
+    depends_on:
+      - db
+    volumes:
+      - .:/app
+    command: sh -c "sleep 5 && psql -h db -U postgres -c 'CREATE DATABASE openapi_manager' || true && psql -h db -U postgres -d openapi_manager -f migrations/000001_create_specs_table.up.sql && /bin/api"
+
+  db:
+    image: postgres:15-alpine
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data: 
