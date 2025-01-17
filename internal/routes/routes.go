@@ -3,8 +3,8 @@ package routes
 import (
 	"net/http"
 
-	"github.com/yourusername/go-openapi-manage-api/internal/handlers"
-	"github.com/yourusername/go-openapi-manage-api/internal/middleware"
+	"github.com/ycchuang99/go-openapi-manage-api/internal/handlers"
+	"github.com/ycchuang99/go-openapi-manage-api/internal/middleware"
 )
 
 func NewRouter() http.Handler {
