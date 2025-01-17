@@ -1,6 +1,6 @@
 package storage
 
-import "github.com/yourusername/go-openapi-manage-api/internal/models"
+import "github.com/ycchuang99/go-openapi-manage-api/internal/models"
 
 // Storage defines the interface for spec storage operations
 type Storage interface {
