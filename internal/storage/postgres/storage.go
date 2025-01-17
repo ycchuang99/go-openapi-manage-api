@@ -5,7 +5,7 @@ import (
 	"time"
 
 	"github.com/google/uuid"
-	"github.com/yourusername/go-openapi-manage-api/internal/models"
+	"github.com/ycchuang99/go-openapi-manage-api/internal/models"
 )
 
 type PostgresStorage struct {
