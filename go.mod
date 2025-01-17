@@ -1,4 +1,4 @@
-module github.com/yourusername/go-openapi-manage-api
+module github.com/ycchuang99/go-openapi-manage-api
 
 go 1.21
 
